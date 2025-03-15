@@ -11,29 +11,39 @@
 <body class="bg-gray-100 min-h-screen flex flex-col">
     <?php include 'includes/header.php'; ?>
 
-    <main class="container mx-auto p-4 flex-grow">
-        <h2 class="text-3xl font-extrabold text-gray-900 mb-6">Student Management</h2>
-
-        <form action="actions/add_student.php" method="POST" class="bg-white p-6 rounded-lg shadow-md mb-8">
+    <main class="container mx-auto px-4 sm:px-6 lg:px-8 py-4 flex-grow">
+        <h2 class="text-2xl sm:text-3xl font-extrabold text-gray-900 mb-6">Student Management</h2>
+    
+        <?php if (isset($_GET['error'])): ?>
+            <div class="bg-red-100 text-red-700 p-4 rounded mb-4">
+                <?php echo htmlspecialchars($_GET['error']); ?>
+            </div>
+        <?php endif; ?>
+    
+        <?php if (isset($_GET['success'])): ?>
+            <div class="bg-green-100 text-green-700 p-4 rounded mb-4">
+                <?php echo htmlspecialchars($_GET['success']); ?>
+            </div>
+        <?php endif; ?>
+    
+        <form action="actions/add_student.php" method="POST" class="bg-white p-6 rounded-lg shadow-md mb-8" onsubmit="return validateForm()">
             <div class="mb-4">
-                <label for="name" class="block text-lg font-medium text-gray-700">Name</label>
+                <label for="name" class="block text-base sm:text-lg font-medium text-gray-700">Name</label>
                 <input type="text" name="name" id="name" required class="mt-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500">
             </div>
             <div class="mb-4">
-                <label for="age" class="block text-lg font-medium text-gray-700">Age</label>
+                <label for="age" class="block text-base sm:text-lg font-medium text-gray-700">Age</label>
                 <input type="number" name="age" id="age" required class="mt-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500">
             </div>
             <div class="mb-4">
-                <label for="grade" class="block text-lg font-medium text-gray-700">Grade</label>
-                <input type="text" name="grade" id="grade" required class="mt-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500">
+                <label for="grade" class="block text-base sm:text-lg font-medium text-gray-700">Grade</label>
+                <input type="number" name="grade" id="grade" required class="mt-2 block w-full border border-gray-300 rounded-md shadow-sm focus:ring focus:ring-blue-500">
             </div>
-            <button type="submit" class="w-full bg-blue-600 text-white text-lg py-2 rounded-lg hover:bg-blue-700">Add Student</button>
+            <div id="error-message" class="text-red-500 mb-4"></div>
+            <button type="submit" class="w-full bg-blue-600 text-white text-base sm:text-lg py-2 rounded-lg hover:bg-blue-700">Add Student</button>
         </form>
 
-        <h3 class="text-2xl font-semibold text-gray-900 mb-4">Student List</h3>
-        <div id="student-list" class="bg-white shadow-md rounded-lg p-6">
-            <!-- Student list will be populated here via JavaScript -->
-        </div>
+        <div id="student-list" class="bg-white p-6 rounded-lg shadow-md"></div>
     </main>
 
     <script>
@@ -80,8 +90,35 @@
             }
         }
 
+        function validateForm() {
+            const name = document.getElementById('name').value;
+            const age = document.getElementById('age').value;
+            const grade = document.getElementById('grade').value;
+            const errorMessage = document.getElementById('error-message');
+            const nameRegex = /^[a-zA-Z\s]+$/;
+            const ageRegex = /^\d+$/;
+            const gradeRegex = /^\d+$/;
+            if (!nameRegex.test(name)) {
+                errorMessage.textContent = 'Name should only contain letters and spaces.';
+                return false;
+            }
+            if (!ageRegex.test(age)) {
+                errorMessage.textContent = 'Age should be a number.';
+                return false;
+            }
+            if (!gradeRegex.test(grade)) {
+                errorMessage.textContent = 'Grade should be a number.';
+                return false;
+            }
+            if (grade < 1 || grade > 12) {
+                errorMessage.textContent = 'Grade must be between 1 and 12.';
+                return false;
+            }
+            errorMessage.textContent = '';
+            return true;
+        }
+
         function editStudent(id) {
-            // Redirect to a form page or implement inline editing
             window.location.href = `includes/edit_form.php?id=${id}`;
         }
     </script>

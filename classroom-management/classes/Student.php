@@ -7,6 +7,9 @@ class Student {
     public function __construct($name, $age, $grade) {
         $this->name = $name;
         $this->age = $age;
+        if (!is_numeric($grade) || $grade < 1 || $grade > 12) {
+            throw new Exception("Grade must be between 1 and 12");
+        }
         $this->grade = $grade;
     }
  #getters

@@ -6,6 +6,11 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $grade = trim($_POST['grade']);
 
     if (!empty($name) && !empty($age) && !empty($grade)) {
+        if (!is_numeric($grade) || $grade < 1 || $grade > 12) {
+            header('Location: ../index.php?error=Grade must be between 1 and 12');
+            exit;
+        }
+
         $studentData = json_decode(file_get_contents('../students.json'), true);
         $newStudent = [
             'id' => uniqid(),
