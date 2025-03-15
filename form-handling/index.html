@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registration Form</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+</head>
+
+<body class="flex items-center justify-center min-h-screen bg-gray-100">
+    <div class="w-full max-w-md p-4 md:p-8 space-y-6 bg-white rounded-lg shadow-lg transform transition duration-300 hover:shadow-2xl mx-4">
+        <h2 class="text-xl md:text-2xl font-bold text-center text-gray-700 hover:text-gray-900 transition duration-300">Create an Account</h2>
+        <form action="process.php" method="POST" class="space-y-4">
+            <div class="transform transition duration-300 hover:scale-[1.02]">
+                <label class="block text-sm font-medium text-gray-600" for="name">Full Name</label>
+                <input type="text" id="name" name="name"
+                    class="w-full px-4 py-2 mt-1 border rounded-lg focus:ring focus:ring-blue-300 transition duration-300 hover:border-blue-500"
+                    placeholder="papa jonh" required>
+            </div>
+            <div class="transform transition duration-300 hover:scale-[1.02]">
+                <label class="block text-sm font-medium text-gray-600" for="email">Email</label>
+                <input type="email" class="w-full px-4 py-2 mt-1 border rounded-lg focus:ring focus:ring-blue-300 transition duration-300 hover:border-blue-500"
+                    placeholder="papa_jonh@example.com" id="email" name="email" required>
+            </div>
+            <div class="transform transition duration-300 hover:scale-[1.02] relative">
+                <label class="block text-sm font-medium text-gray-600">Password</label>
+                <input type="password" name="password" id="password"
+                    class="w-full px-4 py-2 mt-1 border rounded-lg focus:ring focus:ring-blue-300 transition duration-300 hover:border-blue-500"
+                    placeholder="********" required>
+                <button type="button" onclick="togglePassword('password')" class="absolute right-3 top-9">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="h-5 w-5 text-gray-500" id="passwordIcon" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M2.458 12C3.732 7.943 7.523 5 12 5c4.478 0 8.268 2.943 9.542 7-1.274 4.057-5.064 7-9.542 7-4.477 0-8.268-2.943-9.542-7z" />
+                    </svg>
+                </button>
+                <script>
+                    function togglePassword(inputId) {
+                        const input = document.getElementById(inputId);
+                        input.type = input.type === 'password' ? 'text' : 'password';
+                    }
+                </script>
+            </div>            <div class="transform transition duration-300 hover:scale-[1.02]">
+                <label class="block text-sm font-medium text-gray-600">Confirm Password</label>
+                <input type="password" name="confirm_password"
+                    class="w-full px-4 py-2 mt-1 border rounded-lg focus:ring focus:ring-blue-300 transition duration-300 hover:border-blue-500"
+                    placeholder="********" required>
+            </div>
+            <button type="submit"
+                class="w-full px-4 py-2 font-bold text-white bg-blue-500 rounded-lg transform transition duration-300 hover:bg-blue-600 hover:scale-[1.02] active:scale-95">Register</button>
+        </form>
+        <p class="text-sm text-center text-gray-600">Already have an account? <a href="#"
+                class="text-blue-500 hover:text-blue-700 transition duration-300 hover:underline">Sign in</a></p>
+    </div>
+</body>
+
+</html>
