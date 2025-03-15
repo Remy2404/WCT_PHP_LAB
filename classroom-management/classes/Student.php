@@ -3,21 +3,21 @@ class Student {
     private $name;
     private $age;
     private $grade;
-
+        #constructor
     public function __construct($name, $age, $grade) {
         $this->name = $name;
         $this->age = $age;
         $this->grade = $grade;
     }
-
+ #getters
     public function getName() {
         return $this->name;
     }
-
+#setters
     public function getAge() {
         return $this->age;
     }
-
+#setters
     public function getGrade() {
         return $this->grade;
     }
